@@ -47,12 +47,15 @@ function switchText(){//unused, keeping it for later
 }
 
 function switchImgSrc() {
+	/*
 			var images = document.getElementsByTagName('img');
 			console.log(images);
 			for (i = 0; i < images.length; i++){
 					var aProf = selectRandomPic();
 					images[i].setAttribute('src', images[i].getAttribute('src').replace(images[i].getAttribute('src'), aProf));
 			}
+			*/
+			loadXMLDoc("good");
 		
 	//setInterval(switchImgSrc, 5000);
 }
@@ -61,6 +64,35 @@ function selectRandomPic(){
 	var choice = Math.floor(Math.random() * pics.length);
 	return pics[choice];
 }
+
+function loadXMLDoc(word)
+    {
+		//get content from
+		//<section class="container-info antonyms" >
+		
+		url = "http://www.thesaurus.com/browse/" + word + "?s=t";
+		
+        if (window.XMLHttpRequest)
+        {// code for IE7+, Firefox, Chrome, Opera, Safari, SeaMonkey
+            xmlhttp=new XMLHttpRequest();
+        }
+        else
+        {// code for IE6, IE5
+            xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.onreadystatechange=function()
+        {
+            if (xmlhttp.readyState==4 && xmlhttp.status==200)
+            {
+                alert(xmlhttp.responseText);
+            }
+        }
+        xmlhttp.open("GET", url, true);//the bool is async, must be truez
+		//while(xmlhttp.state != "done"){console.log();}
+		xmlhttp.send();//catch for the async
+		content = xmlhttp.responseText;
+		console.log(content);
+    }
 
 //window.onload = switchImgSrc();
 //document.onload = switchImgSrc();
